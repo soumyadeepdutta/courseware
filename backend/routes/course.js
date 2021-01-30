@@ -1,8 +1,10 @@
 const router = require("express").Router();
 
-const { allCourses, createNew } = require("../controllers/course");
+const { allCourses, createNew, update, del } = require("../controllers/course");
 
-router.get("/", allCourses);
+router.delete("/delete/:id", del);
+router.put("/update/:id", update);
 router.post("/create", createNew);
+router.get("/", allCourses);
 
 module.exports = router;

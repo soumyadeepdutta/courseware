@@ -22,6 +22,47 @@ exports.createNew = async (req, res) => {
       success: false,
       message: `Course "${req.body.name}" already exists`,
     });
-  await course.save();
-  res.json({ success: true, data: course });
+  try {
+    await course.save();
+    return res.json({ success: true, data: course });
+  } catch (ex) {
+    console.log(ex);
+    return res.status(400).json({
+      success: false,
+      message: "Something went wrong",
+    });
+  }
+};
+
+exports.update = async (req, res) => {
+  try {
+    const course = await Course.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      useFindAndModify: false,
+    });
+    return res.json({
+      success: true,
+      data: course,
+    });
+  } catch (ex) {
+    return res.status(400).json({
+      success: false,
+      message: "Update Failed",
+    });
+  }
+};
+
+exports.del = async (req, res) => {
+  try {
+    const course = await Course.findByIdAndDelete(req.params.id);
+    return res.json({
+      success: true,
+      data: course,
+    });
+  } catch (ex) {
+    return res.status(400).json({
+      success: false,
+      message: "Delete Failed",
+    });
+  }
 };

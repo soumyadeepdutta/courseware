@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Course from "../components/course";
+
 import instance from "../axios";
 
 function Home() {
@@ -17,10 +17,11 @@ function Home() {
       {courses.map((course) => (
         <div>
           {course.name}
-          <button>
-            <Link to="/course" component={Course} property={course}>
-              View
-            </Link>
+          <button onClick={() => { window.location ="/Course"}}>
+            
+            View
+              
+            
           </button>
         </div>
       ))}
